@@ -74,6 +74,9 @@ class AuditableObserver
      */
     public function deleted(Auditable $model)
     {
+        if ($model->isForceDeleting()) {
+            return null;
+        }
         Auditor::execute($model->setAuditEvent('deleted'));
     }
 
